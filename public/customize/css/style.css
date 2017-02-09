@@ -1,0 +1,5 @@
+/* Datatable */
+
+.dataTable tfoot {
+    display: table-header-group;
+}
