@@ -76,7 +76,10 @@ class BlogsController extends Controller
 
         $data = $request->all();
         $data['author_id'] = Auth::user()->id ? Auth::user()->id : 0;
-        $data['image'] = $picture;
+
+        if ($picture) {
+            $data['image'] = $picture;
+        }
 
         Blogs::create($data);
 
@@ -117,7 +120,10 @@ class BlogsController extends Controller
         $picture = $this->uploadPictureOfBlog($request);
 
         $data = $request->all();
-        $data['image'] = $picture;
+
+        if ($picture) {
+            $data['image'] = $picture;
+        }
 
         $blogs->update($data);
 
@@ -133,8 +139,12 @@ class BlogsController extends Controller
      */
     public function destroy(Blogs $blogs)
     {
-        $blogs->delete();
+        $result = $blogs->delete();
 
-        return redirect('/blogs');
+        //return redirect('/blogs');
+
+        if ($result) {
+            return response()->json(['responseText' => 'Blog was deleted.', 'status' => 200], 200);
+        }
     }
 }

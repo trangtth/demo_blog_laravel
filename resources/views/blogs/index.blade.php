@@ -62,8 +62,7 @@
                             {!! link_to_route('blogs.edit', 'Edit', $blog->id, ['class' => 'btn btn-normal']) !!}
 
                             <!-- TODO: Delete Button -->
-
-                            {!! Form::open(array('url' => route('blogs.destroy', $blog), 'method' => 'delete', 'id' => 'form-delete-blog')) !!}
+                            {!! Form::open(array('url' => route('blogs.destroy', $blog), 'method' => 'delete', 'id' => 'form-delete-blog', 'onsubmit' => 'return false')) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-delete-item', 'id' => 'delete-blog'], $blog->id) !!}
                             {!! Form::close() !!}
 

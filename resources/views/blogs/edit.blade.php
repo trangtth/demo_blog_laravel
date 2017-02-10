@@ -9,7 +9,7 @@
 
         <!-- New Blog Form -->
 
-        {!! Form::model($blogs, ['method' => 'PATCH', 'route' => ['blogs.update', $blogs->id], 'id' => 'blog-form', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
+        {!! Form::model($blogs, ['method' => 'PATCH', 'route' => ['blogs.update', $blogs->id], 'id' => 'blog-form', 'name' => 'blog-form', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
 
         @include ('blogs.form', ['submitButtonText' => 'Update Blog'])
 

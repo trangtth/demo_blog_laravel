@@ -19,7 +19,10 @@
     <link rel="stylesheet" href="{{ url('lib/css/plugins/boostrap/3.3.6/bootstrap.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url('lib/css/plugins/datatables/dataTables.bootstrap.min.css') }}">
 
-    <!-- Dropzone -->
+    <!-- Jquery UI -->
+    <link rel="stylesheet" type="text/css" href="{{ url('lib/css/plugins/jquery-ui/jquery-ui.css') }}">
+
+    {{--<!-- Dropzone -->--}}
     <link rel="stylesheet" type="text/css" href="{{ url('lib/css/plugins/dropzone/css/dropzone.min.css') }}">
 
     <!-- Customize -->
@@ -90,6 +93,10 @@
 
     <!-- Dropzone JS -->
     <script type="text/javascript" src="{{ url('lib/js/dropzone/dropzone.js') }}"></script>
+
+    <!-- Jquery validation -->
+    <script type="text/javascript" src="{{ url('lib/js/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url('lib/js/plugins/jquery-validation/dist/additional-methods.min.js') }}"></script>
 
     <!-- Customize -->
     <script type="text/javascript" src="{{ url('customize/js/common.js') }}"></script>
