@@ -58,23 +58,23 @@ $(document).ready(function() {
     });
 
     $("#form-delete-blog #delete-blog").click(function () {
-        $.ajax({
-            type: 'POST',
-            headers: {'X-CSRF-TOKEN': $('#form-delete-blog input[name=_token]').val()},
-            url: $("#form-delete-blog").attr('action'),
-            data: $("#form-delete-blog").serialize(),
-            success: function(data) {
-                //if (data.status == 200) {
-                    //location.reload();
-                //}
-            },
-            error: function(data) {
+        var confirmDel = confirm('Are you sure ?');
 
-            }
-        });
+        if (confirmDel) {
+            var del_id = $(this).attr('data-id');
+            $.ajax({
+                type: 'DELETE',
+                headers: {'X-CSRF-TOKEN': $(this).parent().find('input[name=_token]').val()},
+                url: $(this).parent().attr('action'),
+                success: function (data) {
+                    if (data.status == 200) {
+                        $('.blog_item_' + del_id).remove();
+                    }
+                },
+                error: function (data) {
+
+                }
+            });
+        }
     });
 });
-
-function ConfirmDelete() {
-    return confirm('Are you sure ?');
-}

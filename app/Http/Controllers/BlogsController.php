@@ -141,8 +141,6 @@ class BlogsController extends Controller
     {
         $result = $blogs->delete();
 
-        //return redirect('/blogs');
-
         if ($result) {
             return response()->json(['responseText' => 'Blog was deleted.', 'status' => 200], 200);
         }
