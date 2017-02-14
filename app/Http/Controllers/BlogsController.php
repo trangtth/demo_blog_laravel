@@ -26,8 +26,7 @@ class BlogsController extends Controller
 
             foreach ($files as $file) {
                 $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $picture = date('His') . $filename . $extension;
+                $picture = date('His') . trim($filename);
                 $destinationPath = base_path() . '\public\image';
                 $file->move($destinationPath, $picture);
             }
