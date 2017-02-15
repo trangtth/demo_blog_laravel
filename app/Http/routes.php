@@ -11,12 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Middleware\CheckRole;
+
+Route::get('/', 'BlogsController@index');
 
 Route::auth();
 
-Route::resource('blogs', 'BlogsController');
+Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['Role:admin|editor']], function () {
+        Route::resource('admin/blogs', 'AdminBlogsController');
+        Route::resource('admin/users', 'AdminUsersController');
+    });
+});
 
-Route::resource('admin/blogs', 'Admin/BlogsController');
+Route::resource('blogs', 'BlogsController');

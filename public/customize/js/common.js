@@ -1,15 +1,15 @@
 $(document).ready(function() {
-    var tableBlogs = $('#table_blogs').DataTable({
+    var datatableProj = $('#datatableProj').DataTable({
 
     });
 
-    $('#table_blogs tfoot th.filter').each( function (i) {
-        var title = $('#table_blogs tfoot th.filter').eq( $(this).index() ).text();
+    $('#datatableProj tfoot th.filter').each( function (i) {
+        var title = $('#datatableProj tfoot th.filter').eq( $(this).index() ).text();
         $(this).append( '<p></p><input type="text" placeholder="Search '+title+'" data-index="'+i+'" />' );
     } );
 
-    $( tableBlogs.table().container() ).on( 'keyup', 'tfoot input', function () {
-        tableBlogs
+    $( datatableProj.table().container() ).on( 'keyup', 'tfoot input', function () {
+        datatableProj
             .column( $(this).data('index') )
             .search( this.value )
             .draw();
@@ -57,7 +57,7 @@ $(document).ready(function() {
         }
     });
 
-    $("#form-delete-blog #delete-blog").click(function () {
+    $("#form-delete #delete-btn").click(function () {
         var confirmDel = confirm('Are you sure ?');
 
         if (confirmDel) {
@@ -68,7 +68,7 @@ $(document).ready(function() {
                 url: $(this).parent().attr('action'),
                 success: function (data) {
                     if (data.status == 200) {
-                        $('.blog_item_' + del_id).remove();
+                        $('.item_' + del_id).remove();
                     }
                 },
                 error: function (data) {

@@ -6,13 +6,21 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+
+    public static $ROLE = [
+        1 => 'admin',
+        2 => 'editor',
+        3 => 'user'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+
     protected $fillable = [
-        'name', 'username', 'email', 'password', 'phone'
+        'name', 'username', 'email', 'password', 'phone', 'role'
     ];
 
     /**
@@ -23,6 +31,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $dates = ['deleted_at'];
 
     public function blogs()
     {

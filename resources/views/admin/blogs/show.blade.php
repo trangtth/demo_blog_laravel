@@ -8,10 +8,10 @@
         <h4>{{ $blogs->content }}</h4>
         @if ($blogs->image)
         <p><img src="{{ url('image/' . $blogs->image) }}"/></p>
-        <p><strong>Author:</strong> {{ count($blogs->user()->get()) ? $blogs->user()->get()[0]['name'] : '' }}</p>
+        <p class="text-danger"><strong>Author:</strong> {{ count($blogs->user()->get()) ? $blogs->user()->get()[0]['name'] : '' }}</p>
         @endif
     </article>
-    <p>{!! link_to_route('blogs.index', 'Back to list blogs') !!}</p>
+    <p>{!! link_to_route('admin.blogs.index', 'Back to list blogs') !!}</p>
 
 </div>
 

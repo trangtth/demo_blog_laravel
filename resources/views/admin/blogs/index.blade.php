@@ -5,7 +5,7 @@
 <div class="panel-body">
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-6">
-            <a class="btn btn-default" href="{{ url('/blogs/create') }}">
+            <a class="btn btn-default" href="{{ url('admin/blogs/create') }}">
                 <i class="fa fa-plus"></i> Add Blog
             </a>
         </div>
@@ -16,7 +16,7 @@
     <div class="panel panel-default">
 
         <div class="panel-body">
-            <table class="table table-striped task-table datatable" id="table_blogs">
+            <table class="table table-striped task-table datatable" id="datatableProj">
 
                 <!-- Table Headings -->
                 <thead>
@@ -38,7 +38,7 @@
                 <!-- Table Body -->
                 <tbody>
                 @foreach ($blogs as $blog)
-                    <tr class="blog_item_{{ $blog->id }}">
+                    <tr class="item_{{ $blog->id }}">
                         <!-- Blog Title -->
                         <td class="table-text">
                             <div>{{ $blog->title }}</div>
@@ -47,7 +47,9 @@
                             <div>{{ $blog->content }}</div>
                         </td>
                         <td class="table-text">
+                            @if ($blog->user)
                             <div> {{ $blog->user->name }} </div>
+                            @endif
                         </td>
                         <td class="table-text">
                             @if ($blog->image)
@@ -56,16 +58,17 @@
                         </td>
                         <td>
                             <!-- TODO: View Button -->
-                            {!! link_to_route('blogs.show', 'View', $blog->id, ['class' => 'btn btn-normal']) !!}
+                            {!! link_to_route('admin.blogs.show', 'View', $blog->id, ['class' => 'btn btn-normal']) !!}
 
                             <!-- TODO: View Button -->
-                            {!! link_to_route('blogs.edit', 'Edit', $blog->id, ['class' => 'btn btn-normal']) !!}
+                            {!! link_to_route('admin.blogs.edit', 'Edit', $blog->id, ['class' => 'btn btn-normal']) !!}
 
+                            @if ($isAdmin)
                             <!-- TODO: Delete Button -->
-                            {!! Form::open(array('url' => route('blogs.destroy', $blog->id), 'method' => 'delete', 'id' => 'form-delete-blog', 'onsubmit' => 'return false')) !!}
-                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-delete-item', 'id' => 'delete-blog', 'data-id' => $blog->id], $blog->id) !!}
+                            {!! Form::open(array('url' => route('admin.blogs.destroy', $blog->id), 'method' => 'delete', 'id' => 'form-delete', 'onsubmit' => 'return false')) !!}
+                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-delete-item', 'id' => 'delete-btn', 'data-id' => $blog->id], $blog->id) !!}
                             {!! Form::close() !!}
-
+                            @endif
                         </td>
                     </tr>
                 @endforeach
