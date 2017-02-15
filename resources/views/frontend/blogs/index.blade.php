@@ -3,20 +3,22 @@
 @section('content')
 
 @if (count($blogs) > 0)
-<div class="row">
+<div class="row list-blog">
     @foreach ($blogs as $blog)
-    <div class="col-md-6 col-md-offset-3">
-        <div><h3>{{ $blog->title }}</h3></div>
-        <h5>{{ $blog->content }}</h5>
-        @if ($blog->image)
-            <div><img src="{{ url('image/' . $blog->image) }}" width="70%"/></div>
-        @endif
-
-        @if ($blog->user)
-        <h5 class="text-danger"><strong>Author:</strong> {{ $blog->user->name }} </h5>
-        @endif
-    </div>
+        @include ('frontend.blogs.item', ['blog' => $blog])
     @endforeach
+</div>
+<div class="row">
+    <br/>
+    <div class="col-md-6 col-md-offset-3">
+        {!! Form::open(array('url' => route('blogs.loadmore'), 'id' => 'form-load', 'onsubmit' => 'return false')) !!}
+        {!! Form::submit('View more', ['class' => 'btn btn-danger btn-view-more', 'id' => 'view-more-btn']) !!}
+        {!! Form::close() !!}
+    </div>
+    <br/>
+    <br>
+    <br/>
+    <br>
 </div>
 @endif
 @endsection

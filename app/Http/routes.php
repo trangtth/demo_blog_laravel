@@ -25,3 +25,5 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::resource('blogs', 'BlogsController');
+
+Route::post('blogs/loadmore', ['as' => 'blogs.loadmore', 'uses' => 'BlogsController@loadmore']);
