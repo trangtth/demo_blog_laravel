@@ -13,23 +13,31 @@ class CreateBlogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blogs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('author_id');
-            $table->string('title');
-            $table->string('content');
-            $table->string('image');
-            $table->timestamps();
+//        Schema::create('blogs', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->integer('author_id');
+//            $table->string('title');
+//            $table->string('content');
+//            $table->string('image');
+//            $table->timestamps();
+//        });
+//
+//        Schema::table('blogs', function ($table) {
+//            $table->softDeletes();
+//        });
+//
+//        Schema::table('blogs', function (Blueprint $table) {
+//            $table->foreign('author_id')
+//                ->references('id')
+//                ->on('users');
+//        });
+
+        Schema::table('users', function ($table) {
+            $table->integer('role');
         });
 
-        Schema::table('blogs', function ($table) {
+        Schema::table('users', function ($table) {
             $table->softDeletes();
-        });
-
-        Schema::table('blogs', function (Blueprint $table) {
-            $table->foreign('author_id')
-                ->references('id')
-                ->on('users');
         });
     }
 
