@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests;
 
 use App\Blogs;
@@ -40,9 +39,6 @@ class BlogsController extends Controller
             }
 
             $isFinish = count($allBlogs) == ($data['page_number'] * 2 + count($results));
-            //var_dump($isFinish);
-            //var_dump(count($allBlogs));
-            //var_dump($data['page_number'] * 2);die;
             if ($isFinish) {
                 return response()->json(['response' => $results, 'status' => 400], 200);
             } else {
