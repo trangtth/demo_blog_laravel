@@ -8,4 +8,10 @@
     @if ($blog->user)
         <h5 class="text-danger"><strong>Author:</strong> {{ $blog->user->name }} </h5>
     @endif
+
+    @if ($isLogin)
+        {!! Form::open(array('url' => route('blogs.like', $blog->id), 'id' => 'form-like', 'onsubmit' => 'return false')) !!}
+        {!! Form::submit('Like', ['class' => 'btn btn-danger btn-like-item', 'id' => 'delete-btn', 'data-id' => $blog->id], $blog->id) !!}
+        {!! Form::close() !!}
+    @endif
 </div>

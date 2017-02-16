@@ -6,7 +6,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-
     public static $ROLE = [
         1 => 'admin',
         2 => 'editor',
@@ -37,5 +36,10 @@ class User extends Authenticatable
     public function blogs()
     {
         return $this->hasMany('App\Blogs');
+    }
+
+    public function bloglikes()
+    {
+        return $this->hasMany('App\Like');
     }
 }

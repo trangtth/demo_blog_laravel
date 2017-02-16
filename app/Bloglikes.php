@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Blogs extends Model
+class Bloglikes extends Model
 {
     use SoftDeletes;
 
@@ -16,7 +16,7 @@ class Blogs extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'content', 'image', 'author_id'
+        'user_id', 'blog_id'
     ];
 
     /**
@@ -28,11 +28,11 @@ class Blogs extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'author_id');
+        return $this->belongsTo('App\User', 'user_id');
     }
 
-    public function bloglikes()
+    public function blogs()
     {
-        return $this->hasMany('App\Like');
+        return $this->belongsTo('App\Blogs', 'blog_id');
     }
 }

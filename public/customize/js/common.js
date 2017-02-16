@@ -1,6 +1,9 @@
 $(document).ready(function() {
+    //Datatable filter
     var datatableProj = $('#datatableProj').DataTable({
-
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+        "pageLength": 5,
+        "order": [[ 4, "desc" ]]
     });
 
     $('#datatableProj tfoot th.filter').each( function (i) {
@@ -57,6 +60,7 @@ $(document).ready(function() {
         }
     });
 
+    //Delete item in datatable
     $("#form-delete #delete-btn").click(function () {
         var confirmDel = confirm('Are you sure ?');
 
@@ -78,27 +82,8 @@ $(document).ready(function() {
         }
     });
 
-    $("#form-delete #delete-btn").click(function () {
-        var confirmDel = confirm('Are you sure ?');
 
-        if (confirmDel) {
-            var del_id = $(this).attr('data-id');
-            $.ajax({
-                type: 'DELETE',
-                headers: {'X-CSRF-TOKEN': $(this).parent().find('input[name=_token]').val()},
-                url: $(this).parent().attr('action'),
-                success: function (data) {
-                    if (data.status == 200) {
-                        $('.item_' + del_id).remove();
-                    }
-                },
-                error: function (data) {
-
-                }
-            });
-        }
-    });
-
+    //Load more blog
     var page_number = 1;
 
     $("#view-more-btn").click(function () {
@@ -111,23 +96,30 @@ $(document).ready(function() {
             },
             success: function (data) {
 
-                if (data.response && data.response.length) {
-                    var html = '';
-                    for (var i = 0; i < data.response.length; i++) {
-                        html += '<div class="col-md-6 col-md-offset-3">'
-                            + '<div><h3>' + data.response[i]['title'] + '</h3></div>'
-                            + '<h5>' + data.response[i]['content'] + '</h5>'
-                            + '<div><img src="' + data.response[i]['image'] + '" width="70%"/></div>'
-                            + '<h5 class="text-danger"><strong>Author:</strong>' + data.response[i]['author'] + '</h5>'
-                            + '</div>';
-                    }
-
-                    $(".list-blog").append(html);
-                }
+                $(".list-blog").append(data.html);
 
                 if (data.status == 400) {
                     $("#view-more-btn").hide();
                 }
+            },
+            error: function (data) {
+
+            }
+        });
+        page_number++;
+    });
+
+    //Like blog
+    $(".btn-like-item").click(function () {
+        $.ajax({
+            type: 'POST',
+            headers: {'X-CSRF-TOKEN': $(this).parent().find('input[name=_token]').val()},
+            url: $(this).parent().attr('action'),
+            data: {
+                blog_id: $(this).attr('data-id')
+            },
+            success: function (data) {
+
             },
             error: function (data) {
 

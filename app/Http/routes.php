@@ -22,6 +22,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('admin/blogs', 'AdminBlogsController');
         Route::resource('admin/users', 'AdminUsersController');
     });
+
+    Route::post('blogs/like', ['as' => 'blogs.like', 'uses' => 'BlogsController@like']);
 });
 
 Route::resource('blogs', 'BlogsController');

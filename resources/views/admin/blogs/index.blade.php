@@ -24,12 +24,14 @@
                 <th width="400">Content</th>
                 <th>Author</th>
                 <th>Picture</th>
+                <th>Created date</th>
                 <th>&nbsp;</th>
                 <tfoot>
                     <tr>
                         <th class="filter"></th>
                         <th class="filter"></th>
                         <th class="filter"></th>
+                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -55,6 +57,9 @@
                             @if ($blog->image)
                             <div><img src="{{ url('image/' . $blog->image) }}" width="100"/></div>
                             @endif
+                        </td>
+                        <td>
+                            <div>{{ $blog->created_at }}</div>
                         </td>
                         <td>
                             <!-- TODO: View Button -->
