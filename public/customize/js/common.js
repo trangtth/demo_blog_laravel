@@ -110,18 +110,23 @@ $(document).ready(function() {
                 page_number: page_number
             },
             success: function (data) {
-                if (data.status == 200) {
+
+                if (data.response && data.response.length) {
                     var html = '';
-                    for (var i=0; i < data.response.length; i++) {
-                        html+= '<div class="col-md-6 col-md-offset-3">'
+                    for (var i = 0; i < data.response.length; i++) {
+                        html += '<div class="col-md-6 col-md-offset-3">'
                             + '<div><h3>' + data.response[i]['title'] + '</h3></div>'
                             + '<h5>' + data.response[i]['content'] + '</h5>'
-                            //+ '<div><img src="{{ url('image/' . $blog->image) }}" width="70%"/></div>'
-                            //+ '<h5 class="text-danger"><strong>Author:</strong> {{ $blog->user->name }} </h5>'
+                            + '<div><img src="' + data.response[i]['image'] + '" width="70%"/></div>'
+                            + '<h5 class="text-danger"><strong>Author:</strong>' + data.response[i]['author'] + '</h5>'
                             + '</div>';
                     }
 
                     $(".list-blog").append(html);
+                }
+
+                if (data.status == 400) {
+                    $("#view-more-btn").hide();
                 }
             },
             error: function (data) {
