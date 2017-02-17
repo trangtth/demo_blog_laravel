@@ -19,7 +19,13 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        $blogs = Blogs::orderBy('created_at', 'desc')->paginate(2);
+        $blogs = Blogs::orderBy('created_at', 'desc')->paginate(3);
+
+        foreach ($blogs as $blog) {
+            $blogId = $blog->id;
+            $userId = Auth::user()->id;
+            $blog->isLiked = count(Bloglikes::where('user_id', $userId)->where('blog_id', $blogId)) ? true : false;
+        }
 
         return view('welcome', [
             'blogs' => $blogs,
@@ -34,18 +40,18 @@ class BlogsController extends Controller
         $allBlogs = Blogs::orderBy('created_at', 'asc')->get();
         $data = $request->all();
 
-        if ($data['page_number'] < (count($allBlogs)/2)) {
-            $results = Blogs::orderBy('created_at', 'desc')->skip($data['page_number'] * 2)->take(2)->get();
+        if ($data['page_number'] < (count($allBlogs)/3)) {
+            $results = Blogs::orderBy('created_at', 'desc')->skip($data['page_number'] * 3)->take(3)->get();
 
             $html = '';
             foreach ($results as $blog) {
-//                $r['image'] = url('/image/' . $r->image);
-//                $r['author'] = $r->user ? $r->user->name : '';
-
+                $blogId = $blog->id;
+                $userId = Auth::user()->id;
+                $blog->isLiked = count(Bloglikes::where('user_id', $userId)->where('blog_id', $blogId)) ? true : false;
                 $html .= view('frontend.blogs.item', compact('blog', 'isLogin'))->render();
             }
 
-            $isFinish = count($allBlogs) == ($data['page_number'] * 2 + count($results));
+            $isFinish = count($allBlogs) == ($data['page_number'] * 3 + count($results));
             if ($isFinish) {
                 return response()->json(['html' => $html, 'status' => 400], 200);
             } else {
@@ -64,8 +70,40 @@ class BlogsController extends Controller
         $data['blog_id'] = $blogId;
         $data['user_id'] = $userId;
 
-        $results = Bloglikes::where();
+        $bloglikes = Bloglikes::withTrashed()->where('user_id', $userId)->where('blog_id', $blogId)->get();
 
-        Bloglikes::create($data);
+        if (count($bloglikes)) {
+            $results = $bloglikes[0];
+            if ($results->deleted_at) {
+                $results->deleted_at = null;
+                $results->update($data);
+            }
+        } else {
+            Bloglikes::create($data);
+        }
+
+        return response()->json(['status' => 200], 200);
+    }
+
+    public function unlike(Request $request)
+    {
+        $data = $request->all();
+
+        $blogId = $data['blog_id'];
+        $userId = Auth::user()->id;
+
+        $data['blog_id'] = $blogId;
+        $data['user_id'] = $userId;
+
+        $bloglikes = Bloglikes::withTrashed()->where('user_id', $userId)->where('blog_id', $blogId)->get();
+
+        if (count($bloglikes)) {
+            $results = $bloglikes[0];
+            if (!$results->deleted_at) {
+                $results->delete();
+            }
+        }
+
+        return response()->json(['status' => 200], 200);
     }
 }

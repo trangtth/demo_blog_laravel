@@ -13,15 +13,14 @@
     <br/>
     <br/>
     <br/>
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-6 col-md-offset-3 hidden">
         {!! Form::open(array('url' => route('blogs.loadmore'), 'id' => 'form-load', 'onsubmit' => 'return false')) !!}
         {!! Form::submit('View more', ['class' => 'btn btn-info btn-view-more', 'id' => 'view-more-btn']) !!}
         {!! Form::close() !!}
     </div>
-    <br/>
-    <br>
-    <br/>
-    <br>
+</div>
+<div class="hideElement txtCenter loading-ajax-data">
+    <img src="{{ url('lib_images/spin.gif') }}" class="hideElement"/>
 </div>
 @endif
 @endsection

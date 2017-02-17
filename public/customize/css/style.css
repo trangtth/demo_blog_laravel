@@ -3,3 +3,11 @@
 .dataTable tfoot {
     display: table-header-group;
 }
+
+.hideElement {
+    display: none;
+}
+
+.txtCenter {
+    text-align: center;
+}
