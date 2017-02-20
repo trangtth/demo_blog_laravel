@@ -12,5 +12,9 @@
     </div>
 </div>
 
-{!! $dataTable->table(['class' => 'table table-striped dataTable', 'id' => 'datatableBlogs'], true) !!}
+<div class="row">
+	<div class="panel-body">
+	{!! $dataTable->table(['class' => 'table table-striped dataTable', 'id' => 'datatableBlogs'], true) !!}
+	</div>
+</div>
 @endsection

@@ -9,7 +9,6 @@ use App\Http\Requests;
 
 use App\Blogs;
 use Validator;
-use Auth;
 use App\Http\Requests\BlogRequest;
 
 use App\DataTables\BlogsDataTable;

@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use Auth;
 use App\User;
 use App\Blogs;
 use Yajra\Datatables\Services\DataTable;
@@ -20,6 +21,9 @@ class BlogsDataTable extends DataTable
             ->addColumn('action', function ($data) {
                 $isAdmin = User::$ROLE[Auth::user()->role] == 'admin';
                 return view('admin/partials/action', compact('data', 'isAdmin'));
+            })
+            ->editColumn('image', function ($data) {
+                return view('admin/partials/image', compact('data'));
             })
             ->make(true);
     }
@@ -52,7 +56,7 @@ class BlogsDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->ajax('')
-            ->addAction(['width' => '80px'])
+            ->addAction([])
             ->parameters([
                 'dom'          => 'Bfrtip',
                 'buttons'      => ['export', 'print', 'reset', 'reload'],

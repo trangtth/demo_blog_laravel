@@ -60,7 +60,7 @@ $(document).ready(function() {
     });
 
     //Delete item in datatable
-    $("#form-delete #delete-btn").click(function () {
+    $(document).on('click', '#form-delete #delete-btn', function () {
         var confirmDel = confirm('Are you sure ?');
 
         if (confirmDel) {
