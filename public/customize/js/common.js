@@ -1,13 +1,13 @@
 $(document).ready(function() {
     //Datatable filter
-    var datatableProj = $('#datatableProj').DataTable({
+    var datatableProj = $('.datatableProj').DataTable({
         "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
         "pageLength": 5,
         "order": [[ 4, "desc" ]]
     });
 
-    $('#datatableProj tfoot th.filter').each( function (i) {
-        var title = $('#datatableProj tfoot th.filter').eq( $(this).index() ).text();
+    $('.datatableProj tfoot th.filter').each( function (i) {
+        var title = $('.datatableProj tfoot th.filter').eq( $(this).index() ).text();
         $(this).append( '<p></p><input type="text" placeholder="Search '+title+'" data-index="'+i+'" />' );
     } );
 
@@ -17,7 +17,6 @@ $(document).ready(function() {
             .search( this.value )
             .draw();
     });
-
 
     // Initialize form validation on the blog form.
     $("#blog-form").validate({

@@ -23,8 +23,14 @@ class BlogsController extends Controller
 
         foreach ($blogs as $blog) {
             $blogId = $blog->id;
-            $userId = Auth::user()->id;
-            $blog->isLiked = count(Bloglikes::where('user_id', $userId)->where('blog_id', $blogId)) ? true : false;
+
+            if (Auth::user()) {
+                $userId = Auth::user()->id;
+            }
+
+            if (isset($blogId) && isset($userId)) {
+                $blog->isLiked = Bloglikes::where('user_id', $userId)->where('blog_id', $blogId)->get()->count() > 0 ? true : false;
+            }
         }
 
         return view('welcome', [
@@ -47,7 +53,7 @@ class BlogsController extends Controller
             foreach ($results as $blog) {
                 $blogId = $blog->id;
                 $userId = Auth::user()->id;
-                $blog->isLiked = count(Bloglikes::where('user_id', $userId)->where('blog_id', $blogId)) ? true : false;
+                $blog->isLiked = Bloglikes::where('user_id', $userId)->where('blog_id', $blogId)->get()->count() > 0 ? true : false;
                 $html .= view('frontend.blogs.item', compact('blog', 'isLogin'))->render();
             }
 

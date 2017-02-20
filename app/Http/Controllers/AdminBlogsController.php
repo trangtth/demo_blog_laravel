@@ -12,6 +12,8 @@ use Validator;
 use Auth;
 use App\Http\Requests\BlogRequest;
 
+use App\DataTables\BlogsDataTable;
+
 class AdminBlogsController extends Controller
 {
     /**
@@ -41,14 +43,16 @@ class AdminBlogsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(BlogsDataTable $dataTable)
     {
-        $blogs = Blogs::orderBy('created_at', 'asc')->get();
+//        $blogs = Blogs::orderBy('created_at', 'asc')->get();
+//
+//        return view('admin/blogs/index', [
+//            'blogs' => $blogs,
+//            'isAdmin' => User::$ROLE[Auth::user()->role] == 'admin'
+//        ]);
 
-        return view('admin/blogs/index', [
-            'blogs' => $blogs,
-            'isAdmin' => User::$ROLE[Auth::user()->role] == 'admin'
-        ]);
+        return $dataTable->render('admin.blogs.index');
     }
 
     /**

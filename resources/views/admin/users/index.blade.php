@@ -6,7 +6,7 @@
     <div class="panel panel-default">
 
         <div class="panel-body">
-            <table class="table table-striped task-table datatable" id="datatableProj">
+            <table class="table table-striped task-table datatable datatableProj" id="datatableUsers">
 
                 <!-- Table Headings -->
                 <thead>

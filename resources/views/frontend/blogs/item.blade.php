@@ -14,16 +14,20 @@
 
         @if ($isLogin)
             <br/>
-            <div class="form_unlike_{{ $blog->id }} @if (!$blog->isLiked) hideElement @endif">
+            @if ($blog->isLiked == true)
+            <div class="form_unlike_{{ $blog->id }}">
             {!! Form::open(array('url' => route('blogs.unlike', $blog->id), 'id' => 'form-unlike', 'onsubmit' => 'return false')) !!}
             {!! Form::button('<i class="fa fa-thumbs-o-down"></i>', ['type' => 'button', 'class' => 'btn btn-danger btn-unlike-item', 'id' => 'like-btn', 'data-id' => $blog->id], $blog->id) !!}
             {!! Form::close() !!}
             </div>
+            @endif
 
-            <div class="form_like_{{ $blog->id }} @if ($blog->isLiked) hideElement @endif">
+            @if ($blog->isLiked == false)
+            <div class="form_like_{{ $blog->id }}">
             {!! Form::open(array('url' => route('blogs.like', $blog->id), 'id' => 'form-like', 'onsubmit' => 'return false')) !!}
             {!! Form::button('<i class="fa fa-thumbs-o-up"></i>', ['type' => 'button', 'class' => 'btn btn-info btn-like-item', 'id' => 'like-btn', 'data-id' => $blog->id], $blog->id) !!}
             {!! Form::close() !!}
+            @endif
             </div>
         @endif
     </div>
