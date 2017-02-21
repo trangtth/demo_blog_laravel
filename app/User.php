@@ -4,8 +4,12 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class User extends Authenticatable
 {
+    use SoftDeletes;
+
     public static $ROLE = [
         1 => 'admin',
         2 => 'editor',

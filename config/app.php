@@ -159,6 +159,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
 
         Yajra\Datatables\DatatablesServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
 
     ],
 

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-
 use Validator;
 use Auth;
 use App\User;
+
+use App\Http\Requests;
 use App\Http\Requests\UserRequest;
+
+use App\DataTables\UsersDataTable;
 
 class AdminUsersController extends Controller
 {
@@ -18,15 +18,9 @@ class AdminUsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UsersDataTable $dataTable)
     {
-        $users = User::orderBy('created_at', 'desc')->get();
-
-        return view('admin.users.index', [
-            'users' => $users,
-            'isAdmin' => User::$ROLE[Auth::user()->role] == 'admin',
-            'roleUser' => User::$ROLE
-        ]);
+        return $dataTable->render('admin.users.index');
     }
 
     /**

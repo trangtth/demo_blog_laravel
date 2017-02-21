@@ -4,10 +4,9 @@ namespace App\DataTables;
 
 use Auth;
 use App\User;
-use App\Blogs;
 use Yajra\Datatables\Services\DataTable;
 
-class BlogsDataTable extends DataTable
+class UsersDataTable extends DataTable
 {
     /**
      * Display ajax response.
@@ -20,13 +19,11 @@ class BlogsDataTable extends DataTable
             ->eloquent($this->query())
             ->addColumn('action', function ($data) {
                 $isAdmin = User::$ROLE[Auth::user()->role] == 'admin';
-                return view('admin/partials/blogs/action', compact('data', 'isAdmin'));
+                return view('admin/partials/users/action', compact('data', 'isAdmin'));
             })
-            ->addColumn('author', function ($data) {
-                return $data->user ? $data->user->name : '';
-            })
-            ->editColumn('image', function ($data) {
-                return view('admin/partials/image', compact('data'));
+            ->editColumn('role', function ($data) {
+                $roleUser = User::$ROLE;
+                return $roleUser[$data->role];
             })
             ->make(true);
     }
@@ -38,7 +35,7 @@ class BlogsDataTable extends DataTable
      */
     public function query()
     {
-        $query = Blogs::select();
+        $query = User::select();
 
         return $this->applyScopes($query);
     }
@@ -81,10 +78,10 @@ class BlogsDataTable extends DataTable
     {
         return [
             'id',
-            'title',
-            'content',
-            'author',
-            'image',
+            'name',
+            'username',
+            'email',
+            'role',
             'created_at',
             'updated_at',
         ];
@@ -97,6 +94,6 @@ class BlogsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'blogsdatatables_' . time();
+        return 'usersdatatables_' . time();
     }
 }

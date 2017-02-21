@@ -52,6 +52,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
+
                     <li><a href="{{ url('admin/blogs') }}">Blogs Management</a></li>
                     <li><a href="{{ url('admin/users') }}">Users Management</a></li>
                 </ul>

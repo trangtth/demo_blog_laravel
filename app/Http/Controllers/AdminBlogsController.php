@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-
+use Auth;
 use App\Blogs;
 use Validator;
+
+use App\Http\Requests;
 use App\Http\Requests\BlogRequest;
 
 use App\DataTables\BlogsDataTable;
@@ -44,13 +42,6 @@ class AdminBlogsController extends Controller
      */
     public function index(BlogsDataTable $dataTable)
     {
-//        $blogs = Blogs::orderBy('created_at', 'asc')->get();
-//
-//        return view('admin/blogs/index', [
-//            'blogs' => $blogs,
-//            'isAdmin' => User::$ROLE[Auth::user()->role] == 'admin'
-//        ]);
-
         return $dataTable->render('admin.blogs.index');
     }
 

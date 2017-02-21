@@ -30,6 +30,7 @@ class BlogsController extends Controller
 
             if (isset($blogId) && isset($userId)) {
                 $blog->isLiked = Bloglikes::where('user_id', $userId)->where('blog_id', $blogId)->get()->count() > 0 ? true : false;
+                $blog->numLiked = Bloglikes::where('user_id', $userId)->where('blog_id', $blogId)->get()->count();
             }
         }
 

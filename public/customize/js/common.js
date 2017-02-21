@@ -64,14 +64,13 @@ $(document).ready(function() {
         var confirmDel = confirm('Are you sure ?');
 
         if (confirmDel) {
-            var del_id = $(this).attr('data-id');
             $.ajax({
                 type: 'DELETE',
                 headers: {'X-CSRF-TOKEN': $(this).parent().find('input[name=_token]').val()},
                 url: $(this).parent().attr('action'),
                 success: function (data) {
                     if (data.status == 200) {
-                        $('.item_' + del_id).remove();
+                        $('.dataTable').DataTable().draw();
                     }
                 },
                 error: function (data) {

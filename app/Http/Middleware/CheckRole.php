@@ -6,6 +6,8 @@ use Closure;
 
 use Auth;
 use App\User;
+use Illuminate\Support\Facades\Session;
+
 
 class CheckRole
 {
@@ -27,10 +29,11 @@ class CheckRole
             }
         }
 
-        if (!$isAccess) {
-             dd('Permission deny.');
+        if ($isAccess) {
+            return $next($request);
+        } else {
+            return redirect('/');
         }
 
-        return $next($request);
     }
 }
