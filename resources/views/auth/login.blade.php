@@ -58,6 +58,12 @@
                             </div>
                         </div>
                     </form>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            <a class="btn btn-link" href="{{ url('/glogin') }}">Login with Google account</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

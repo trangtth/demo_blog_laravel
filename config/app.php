@@ -159,8 +159,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
 
         Yajra\Datatables\DatatablesServiceProvider::class,
-        Barryvdh\Snappy\ServiceProvider::class,
-
+        Laravel\Socialite\SocialiteServiceProvider::class,
     ],
 
     /*
@@ -211,6 +210,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
 
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

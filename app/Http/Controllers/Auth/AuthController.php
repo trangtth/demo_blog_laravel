@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
+use Laravel\Socialite\Facades\Socialite;
+
 class AuthController extends Controller
 {
     /*
@@ -77,5 +79,36 @@ class AuthController extends Controller
             'role' => 3,
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @return Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    /**
+     * Obtain the user information from Google.
+     *
+     * @return Response
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::with('google')->user();
+
+        // stroing data to our use table and logging them in
+        $data = [
+            'name' => $user->getName(),
+            'email' => $user->getEmail()
+        ];
+
+        Auth::login(User::firstOrCreate($data));
+
+        //after login redirecting to home page
+        return redirect($this->redirectPath());
     }
 }

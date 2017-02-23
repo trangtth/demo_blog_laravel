@@ -32,3 +32,6 @@ Route::group(['middleware' => ['auth']], function () {
 Route::resource('blogs', 'BlogsController');
 
 Route::post('blogs/loadmore', ['as' => 'blogs.loadmore', 'uses' => 'BlogsController@loadmore']);
+
+Route::get('glogin',array('as'=>'glogin','uses'=>'Auth\AuthController@redirectToProvider')) ;
+Route::get('oauth2callback', array('uses' => 'Auth\AuthController@handleProviderCallback'));

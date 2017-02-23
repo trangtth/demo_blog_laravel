@@ -8,7 +8,7 @@
 
     <!-- New Blog Form -->
 
-    {!! Form::open(array('url' => route('admin.blogs.store'), 'id' => 'blog-form', 'name' => 'blog-form', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data', 'onsubmit' => 'false')) !!}
+    {!! Form::open(array('url' => route('admin.blogs.store'), 'id' => 'blog-form', 'name' => 'blog-form', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data')) !!}
 
     @include ('admin.blogs.form', ['submitButtonText' => 'Add Blog'])
 
