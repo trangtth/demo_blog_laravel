@@ -7,7 +7,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                    <div id="form-errors"></div>
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}" id="form-register" onsubmit="return false">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -28,7 +29,7 @@
                             <label for="name" class="col-md-4 control-label">User Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="username" value="{{ old('username') }}">
+                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}">
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">
@@ -96,7 +97,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="btn-register">
                                     <i class="fa fa-btn fa-user"></i> Register
                                 </button>
                             </div>

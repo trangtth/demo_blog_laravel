@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Blogs;
+
 use Validator;
 
 use App\Http\Requests;
@@ -85,7 +86,7 @@ class AdminBlogsController extends Controller
      */
     public function show(Blogs $blogs)
     {
-        return view('admin.blogs.show', compact('blogs'));
+        return view('partials.blogs.show', compact('blogs'));
     }
 
     /**

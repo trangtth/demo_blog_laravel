@@ -54,7 +54,11 @@ class AuthController extends Controller
             'username' => 'required|unique:users',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-        ]);
+            'phone' => 'numeric|phone_number|digits:11'
+        ],
+            [
+                'phone.phone_number' => 'The phone is invalid.'
+            ]);
     }
 
     /**

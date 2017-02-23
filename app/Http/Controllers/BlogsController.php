@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-
 use App\Blogs;
 use App\Bloglikes;
-use Validator;
 use Auth;
+
+use Validator;
+
+use Illuminate\Http\Request;
+use App\Http\Requests;
 
 class BlogsController extends Controller
 {
@@ -112,5 +113,16 @@ class BlogsController extends Controller
         }
 
         return response()->json(['status' => 200], 200);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Blogs $blogs)
+    {
+        return view('partials.blogs.show', compact('blogs'));
     }
 }

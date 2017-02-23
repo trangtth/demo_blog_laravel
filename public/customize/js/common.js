@@ -59,6 +59,32 @@ $(document).ready(function() {
         }
     });
 
+    // Initialize form validation on the register form.
+    //$("#form-register").validate({
+    //    rules: {
+    //        name: "required",
+    //        username: "required",
+    //        email: {
+    //            required: true,
+    //            email: true
+    //        },
+    //        password: {
+    //            required: true,
+    //            min: 6
+    //        },
+    //        password_confirmation: {
+    //            required: true,
+    //            equalTo: "#password"
+    //        }
+    //    },
+    //    messages: {
+    //
+    //    },
+    //    submitHandler: function(form) {
+    //        form.submit();
+    //    }
+    //});
+
     //Delete item in datatable
     $(document).on('click', '#form-delete #delete-btn', function () {
         var confirmDel = confirm('Are you sure ?');
@@ -81,32 +107,34 @@ $(document).ready(function() {
     });
 
     var page_number = 1;
-    $(window).scroll(function(){
-        if($(window).scrollTop() + $(window).height() == $(document).height()) {
-            $('.list-blog').append($(".loading-ajax-data").html());
-            $(".list-blog .loading-ajax-data").show();
-            $(".list-blog .loading-ajax-data img").show();
-            $.ajax({
-                type: 'POST',
-                headers: {'X-CSRF-TOKEN': $("#view-more-btn").parent().find('input[name=_token]').val()},
-                url: $("#view-more-btn").parent().attr('action'),
-                data: {
-                    page_number: page_number
-                },
-                success: function (data) {
+    $(window).scroll(function() {
+        if ($('.list-blog').length) {
+            if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                $('.list-blog').append($(".loading-ajax-data").html());
+                $(".list-blog .loading-ajax-data").show();
+                $(".list-blog .loading-ajax-data img").show();
+                $.ajax({
+                    type: 'POST',
+                    headers: {'X-CSRF-TOKEN': $("#view-more-btn").parent().find('input[name=_token]').val()},
+                    url: $("#view-more-btn").parent().attr('action'),
+                    data: {
+                        page_number: page_number
+                    },
+                    success: function (data) {
 
-                    $(".list-blog").append(data.html);
+                        $(".list-blog").append(data.html);
 
-                    if (data.status == 400) {
-                        $("#view-more-btn").hide();
-                        $('.list-blog').find(".loading-ajax-data").remove();
+                        if (data.status == 400) {
+                            $("#view-more-btn").hide();
+                            $('.list-blog').find(".loading-ajax-data").remove();
+                        }
+                    },
+                    error: function (data) {
+
                     }
-                },
-                error: function (data) {
-
-                }
-            });
-            page_number++;
+                });
+                page_number++;
+            }
         }
     });
 
@@ -151,6 +179,32 @@ $(document).ready(function() {
             },
             error: function (data) {
 
+            }
+        });
+    });
+
+    //Register user
+    $(document).on('click', '#btn-register', function () {
+        $.ajax({
+            type: 'POST',
+            headers: {'X-CSRF-TOKEN': $('#form-register input[name=_token]').val()},
+            url: $('#form-register').attr('action'),
+            data: $('#form-register').serializeArray(),
+            success: function (data) {
+                $('#form-errors').html('');
+                if (data.status == 200) {
+                        window.location = data.responseText.url;
+                }
+            },
+            error: function (data) {
+                var errorsHtml = '<div class="alert alert-danger"><ul>';
+
+                $.each(data.responseJSON, function(key, value) {
+                    errorsHtml += '<li>' + value + '</li>';
+                });
+                errorsHtml += '</ul></di>';
+
+                $('#form-errors').html(errorsHtml);
             }
         });
     });

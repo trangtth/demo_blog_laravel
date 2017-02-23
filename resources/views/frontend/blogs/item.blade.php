@@ -3,7 +3,7 @@
         <div><h3>{{ $blog->title }}</h3></div>
         <h5>{{ $blog->content }}</h5>
         @if ($blog->image)
-            <div><img src="{{ url('image/' . $blog->image) }}" width="70%"/></div>
+            <div><img src="{{ url('image/' . $blog->image) }}" width="100%"/></div>
         @endif
 
         @if ($isLogin)
@@ -21,6 +21,8 @@
             {!! Form::close() !!}
             </div>
         @endif
+
+        {!! link_to_route('blogs.show', 'Read more', $blog->id, ['class' => 'pull-right']) !!}
 
         @if ($blog->user)
             <h6 class="text-danger"><strong>By:</strong> {{ $blog->user->name }} {{ $blog->created_at }}</h6>

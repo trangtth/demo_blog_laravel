@@ -25,6 +25,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('blogs/like', ['as' => 'blogs.like', 'uses' => 'BlogsController@like']);
     Route::post('blogs/unlike', ['as' => 'blogs.unlike', 'uses' => 'BlogsController@unlike']);
+
+    Route::post('blogs/{blogs}/comment', ['uses' => 'CommentsController@store']);
 });
 
 Route::resource('blogs', 'BlogsController');
