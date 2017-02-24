@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -54,7 +55,7 @@ class AuthController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'username' => 'required|unique:users',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'email|max:255',
             'password' => 'required|min:6|confirmed',
             'phone' => 'numeric|phone_number|digits:11'
         ],
@@ -86,9 +87,9 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function redirectToProvider()
+    public function redirectToProvider($provider)
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver($provider)->redirect();
     }
 
     /**
@@ -96,19 +97,37 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function handleProviderCallback()
+    public function handleProviderCallback($provider)
     {
-        $user = Socialite::with('google')->user();
+        $user = Socialite::driver($provider)->user();
 
-        // stroing data to our use table and logging them in
-        $data = [
-            'name' => $user->getName(),
-            'email' => $user->getEmail()
-        ];
+        $authUser = $this->findOrCreateUser($user, $provider);
 
-        Auth::login(User::firstOrCreate($data));
+        Auth::login($authUser, true);
+        return redirect($this->redirectTo);
+    }
 
-        //after login redirecting to home page
-        return redirect($this->redirectPath());
+    /**
+     * If a user has registered before using social auth, return the user
+     * else, create a new user object.
+     * @param  $user Socialite user object
+     * @param $provider Social auth provider
+     * @return  User
+     */
+    public function findOrCreateUser($user, $provider)
+    {
+        $authUser = User::where('email', $user->email)->first();
+
+        if ($authUser) {
+            $authUser->update(['provider' => $provider, 'provider_id' => $user->id]);
+            return $authUser;
+        }
+        return User::create([
+            'name' => $user->name,
+            'email' => $user->email,
+            'provider' => $provider,
+            'provider_id' => $user->id,
+            'role' => 3
+        ]);
     }
 }

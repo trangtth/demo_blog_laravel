@@ -33,5 +33,5 @@ Route::resource('blogs', 'BlogsController');
 
 Route::post('blogs/loadmore', ['as' => 'blogs.loadmore', 'uses' => 'BlogsController@loadmore']);
 
-Route::get('glogin',array('as'=>'glogin','uses'=>'Auth\AuthController@redirectToProvider')) ;
-Route::get('oauth2callback', array('uses' => 'Auth\AuthController@handleProviderCallback'));
+Route::get('auth/{provider}',array('uses'=>'Auth\AuthController@redirectToProvider')) ;
+Route::get('auth/{provider}/callback', array('uses' => 'Auth\AuthController@handleProviderCallback'));

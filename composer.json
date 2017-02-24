@@ -10,7 +10,9 @@
         "appzcoder/crud-generator": "^2.0",
         "laravelcollective/html": "5.2.*",
         "yajra/laravel-datatables-oracle": "~6.0",
-        "laravel/socialite": "2.0.*@dev"
+        "laravel/socialite": "2.0.4",
+        "guzzlehttp/guzzle": "~4.0"
+
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

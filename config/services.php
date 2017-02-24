@@ -38,6 +38,12 @@ return [
     'google' => [
         'client_id' => '437977808975-fau9nklivuki0869luo82sd0b62h1fnr.apps.googleusercontent.com',
         'client_secret' => 'ARDPAVQQaCCiU4Hl0vcwvMJo',
-        'redirect' => 'http://localhost:80/oauth2callback',
+        'redirect' => 'http://localhost:80/auth/google/callback',
     ],
+
+    'facebook' => [
+        'client_id' => '178620062633254',
+        'client_secret' => 'd02c5da93284c3b0b8d550fa684ef39d',
+        'redirect' => 'http://localhost:80/auth/facebook/callback'
+    ]
 ];
