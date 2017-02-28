@@ -19,11 +19,8 @@ class BlogsDataTable extends DataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($data) {
-                $isAdmin = User::$ROLE[Auth::user()->role] == 'admin';
+                $isAdmin = Auth::user()->role == 'admin';
                 return view('admin/partials/blogs/action', compact('data', 'isAdmin'));
-            })
-            ->addColumn('author', function ($data) {
-                return $data->user ? $data->user->name : '';
             })
             ->editColumn('image', function ($data) {
                 return view('admin/partials/image', compact('data'));
@@ -38,7 +35,7 @@ class BlogsDataTable extends DataTable
      */
     public function query()
     {
-        $query = Blogs::select();
+        $query = Blogs::with('user')->select('blogs.*');
 
         return $this->applyScopes($query);
     }
@@ -83,7 +80,7 @@ class BlogsDataTable extends DataTable
             'id',
             'title',
             'content',
-            'author',
+            'user.name',
             'image',
             'created_at',
             'updated_at',

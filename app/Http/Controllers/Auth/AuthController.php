@@ -77,7 +77,7 @@ class AuthController extends Controller
             'username' => $data['username'],
             'phone' => $data['phone'] ? $data['phone'] : '' ,
             'email' => $data['email'],
-            'role' => 3,
+            'role' => config('auth.roles.user'),
             'password' => bcrypt($data['password']),
         ]);
     }
@@ -127,7 +127,7 @@ class AuthController extends Controller
             'email' => $user->email,
             'provider' => $provider,
             'provider_id' => $user->id,
-            'role' => 3
+            'role' => config('auth.roles.user')
         ]);
     }
 }

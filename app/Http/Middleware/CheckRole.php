@@ -23,7 +23,7 @@ class CheckRole
         $arrayRoles = explode("|", $role);
         $isAccess = false;
         foreach ($arrayRoles as $r) {
-            if (User::$ROLE[Auth::user()->role] == $r) {
+            if (Auth::user()->role == $r) {
                 $isAccess = true;
                 break;
             }

@@ -32,7 +32,7 @@ class AdminUsersController extends Controller
      */
     public function show(User $users)
     {
-        $roleUser = User::$ROLE;
+        $roleUser = config('auth.roles');
         return view('admin.users.show', compact('users', 'roleUser'));
     }
 
@@ -44,7 +44,7 @@ class AdminUsersController extends Controller
      */
     public function edit(User $users)
     {
-        $roleUser = User::$ROLE;
+        $roleUser = config('auth.roles');
         return view('admin.users.edit', compact('users', 'roleUser'));
     }
 

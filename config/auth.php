@@ -104,4 +104,10 @@ return [
         ],
     ],
 
+    'roles' => [
+        'admin' => 'admin',
+        'editor' => 'editor',
+        'user' => 'user'
+    ]
+
 ];

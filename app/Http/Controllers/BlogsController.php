@@ -20,20 +20,7 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        $blogs = Blogs::orderBy('created_at', 'desc')->paginate(3);
-
-        foreach ($blogs as $blog) {
-            $blogId = $blog->id;
-
-            if (Auth::user()) {
-                $userId = Auth::user()->id;
-            }
-
-            if (isset($blogId) && isset($userId)) {
-                $blog->isLiked = Bloglikes::where('user_id', $userId)->where('blog_id', $blogId)->get()->count() > 0 ? true : false;
-                $blog->numLiked = Bloglikes::where('user_id', $userId)->where('blog_id', $blogId)->get()->count();
-            }
-        }
+        $blogs = Blogs::getBlogs();
 
         return view('welcome', [
             'blogs' => $blogs,

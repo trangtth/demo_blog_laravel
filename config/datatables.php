@@ -95,4 +95,8 @@ return [
         ],
         'orientation' => 'landscape',
     ],
+
+    'pagination' => [
+        'perpage' => 3
+    ]
 ];

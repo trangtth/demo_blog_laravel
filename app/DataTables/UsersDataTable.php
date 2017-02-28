@@ -18,12 +18,8 @@ class UsersDataTable extends DataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($data) {
-                $isAdmin = User::$ROLE[Auth::user()->role] == 'admin';
+                $isAdmin = Auth::user()->role == 'admin';
                 return view('admin/partials/users/action', compact('data', 'isAdmin'));
-            })
-            ->editColumn('role', function ($data) {
-                $roleUser = User::$ROLE;
-                return $roleUser[$data->role];
             })
             ->make(true);
     }
