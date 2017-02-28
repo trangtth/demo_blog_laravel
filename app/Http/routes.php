@@ -21,6 +21,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['Role:admin|editor']], function () {
         Route::resource('admin/blogs', 'AdminBlogsController');
         Route::resource('admin/users', 'AdminUsersController');
+
+        Route::post('admin/blogs/deleteBlogChecked', ['uses' => 'AdminBlogsController@deleteBlogChecked']);
     });
 
     Route::post('blogs/like', ['as' => 'blogs.like', 'uses' => 'BlogsController@like']);
@@ -33,5 +35,5 @@ Route::resource('blogs', 'BlogsController');
 
 Route::post('blogs/loadmore', ['as' => 'blogs.loadmore', 'uses' => 'BlogsController@loadmore']);
 
-Route::get('auth/{provider}',array('uses'=>'Auth\AuthController@redirectToProvider')) ;
+Route::get('auth/{provider}', array('uses'=>'Auth\AuthController@redirectToProvider')) ;
 Route::get('auth/{provider}/callback', array('uses' => 'Auth\AuthController@handleProviderCallback'));

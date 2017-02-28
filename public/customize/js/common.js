@@ -141,4 +141,22 @@ $(document).ready(function() {
             }
         });
     });
+
+    //Delete blogs checked
+    $(document).on('click', '#btn-delete-blogs-checked', function () {
+        $.ajax({
+            type: 'POST',
+            headers: {'X-CSRF-TOKEN': $('#btn-delete-blogs-checked').attr('data-csrf')},
+            url: $('#btn-delete-blogs-checked').attr('href'),
+            data: {
+                list_item: $('#datatableBlogs tbody tr td input.group-checkable:checked').serialize()
+            },
+            success: function (data) {
+
+            },
+            error: function (data) {
+
+            }
+        });
+    });
 });

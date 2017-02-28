@@ -22,6 +22,9 @@ class BlogsDataTable extends DataTable
                 $isAdmin = Auth::user()->role == 'admin';
                 return view('admin/partials/blogs/action', compact('data', 'isAdmin'));
             })
+            ->editColumn('id', function ($data) {
+                return view('admin/partials/blogs/checkbox', compact('data'));
+            })
             ->editColumn('image', function ($data) {
                 return view('admin/partials/image', compact('data'));
             })

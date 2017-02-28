@@ -7,6 +7,7 @@ use App\Blogs;
 
 use Validator;
 
+use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\BlogRequest;
 
@@ -136,5 +137,15 @@ class AdminBlogsController extends Controller
         if ($result) {
             return response()->json(['responseText' => 'Blog was deleted.', 'status' => 200], 200);
         }
+    }
+
+    /**
+     * Remove blogs checked in blogs management
+     */
+    public function deleteBlogChecked(Request $request)
+    {
+        $data = $request->all();
+        //$listBlogsChecked = $data['list_item'];
+        dd($data);
     }
 }
